@@ -1,3 +1,7 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
+
 /**
  * Created by Administrator on 2018/2/11 0011.
  */
@@ -121,12 +125,44 @@ public class Test1 {
         String[] textFields=text.split("\n");
 
 
-
+        String[] oldFields={"ASYSLJSXSE","YSHWXSE","YSLWXSE","SYSLNSJCTZXSE","AJYBFJSXSE","JYBFNSJCTZXSE","MDTBFCKXSE","MSXSE","MSHWXSE","MSLWXSE","XXSE","JXSE","SQLDSE","JXSEZC","MDTYTSE","SYSLNSJCYBJSE","YDKSEHJ","SJDKSE","YNSE","QMLDSE","JYBFYNSE","JYBFNSJCYBJSE","YNSEJZE","YNSEHJ","QCWJSE","SSCKKJZYJKSTSE","BQYJSE","FCYJSE","CKKJZYJKSYJSE","BQJNSQYNSE","BQJNQJSE","QMWJSE","QMWJSEQJSE","BQYBTSE","JZJTSJTSE","QCWJCBSE","BQRKCBSE","QMWJCBSE",};
+        String[] cols={"ybby","ybbnlj","jzby","jzbnlj"};
+        Map<String,String> mappedFields=new HashMap<String, String>();
         for (int i = 0; i < textFields.length; i++) {
-            StringBuffer count=new StringBuffer();
+            String a="";
+            String b="";
             String textField = textFields[i];
-            System.out.println(textField.split(" +")[2]);
+            for (int j = 0; j < cols.length; j++) {
+                String col = cols[j];
+                if (Pattern.compile(col).matcher(textField.split(" +")[0]).find()){
+                    a=j+1+"";
+                }
+            }
+            for (int k=1;k<39;k++){
+                if (Pattern.compile(k+"").matcher(textField.split(" +")[2]).find()){
+                    b=k+"";
+                }
+            }
+            if (!a.equals("")){
+                mappedFields.put(a.concat(b),textField.split(" +")[0]);
+            }
         }
+         StringBuffer selectedFields=new StringBuffer();
+        System.out.println(mappedFields.size());
+        for (int i = 0; i < oldFields.length; i++) {
+            String oldField = oldFields[i];
+            for (int j = 0; j < 4; j++) {
+                String a =j+1+"";
+                String b=i+1+"";
+                String count=a.concat(b);
+                String newField=mappedFields.get(count);
+                if (newField!=null){
+                    selectedFields.append("SUBSTRING_INDEX(SUBSTRING_INDEX("+oldField+",',', "+j+"), ',', -1) as field,".replace("field",newField));
+                }
+
+            }
+        }
+        System.out.println(selectedFields.toString());
 
     }
 }
