@@ -151,8 +151,8 @@ public class Test1 {
         System.out.println(mappedFields.size());
         for (int i = 0; i < oldFields.length; i++) {
             String oldField = oldFields[i];
-            for (int j = 0; j < 4; j++) {
-                String a =j+1+"";
+            for (int j = 1; j < 5; j++) {
+                String a =j+"";
                 String b=i+1+"";
                 String count=a.concat(b);
                 String newField=mappedFields.get(count);
