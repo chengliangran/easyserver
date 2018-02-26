@@ -1,0 +1,13 @@
+package com.easyserver.processor;
+
+/**
+ * Created by Administrator on 2018/2/26 0026.
+ */
+public class HttpProcessor implements Runnable {
+    public void run() {
+        process();
+    }
+    public void process(){
+        System.out.println("process request and response");
+    }
+}
