@@ -1,37 +1,33 @@
+import com.easyserver.components.Request;
+import com.easyserver.components.Response;
+import com.easyserver.core.Context;
 import com.easyserver.processor.HttpProcessor;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by Administrator on 2018/2/26 0026.
  */
 public class BootStrap {
+    private static int count=0;
     public static void main(String[] args) {
         try {
+            Context context=new Context();
             ServerSocket serverSocket=new ServerSocket(8080);
             while (true){
                 try {
                     Socket socket =serverSocket.accept();
-                    InputStream inputStream=socket.getInputStream();
-                    BufferedReader reader=new BufferedReader(new InputStreamReader(inputStream));
-                    boolean flag=true;
-                    StringBuffer sb=new StringBuffer();
-                            byte[] buf=new byte[100];
-                            int length=0;
-                            while ((length=inputStream.read(buf))!=-1){
-                                sb.append(new String(buf,0,length));
-                                if (sb.toString().contains("\r\n\r\n")){
-                                    System.out.println(sb.toString());
-                                    break;
-                                }
-                             }
-                    OutputStream outputStream=socket.getOutputStream();
-                    outputStream.write("HTTP/1.1 200 SUCCESS\r\n ".getBytes());
-                    Thread thread=new Thread(new HttpProcessor());
-                    thread.start();
 
+                    Request request=new Request(socket.getInputStream());
+                    Response response=new Response(socket.getOutputStream(),request);
+                    System.out.println(count);
+
+                    Thread thread=new Thread(new HttpProcessor(request,response,context));
+                    thread.start();
+                    count++;
                 }catch (Exception e){
 
                 }
