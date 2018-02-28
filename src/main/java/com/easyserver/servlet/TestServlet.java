@@ -20,7 +20,7 @@ public class TestServlet implements Servlet {
     public void invoke(Request request, Response response) {
         System.out.println("返回处理结果");
         try {
-            if (request.getUrl().equals("")){
+            if ("/".equals(request.getUrl())){
                 byte[] buffer=new byte[2048];
                 FileInputStream inputStream=new FileInputStream(new File(PathKit.WEB_ROOT+File.separator+"test.txt"));
                 int length=inputStream.read(buffer);

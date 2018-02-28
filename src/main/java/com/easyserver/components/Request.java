@@ -18,7 +18,11 @@ public class Request {
         this.inputStream = inputStream;
     }
 
+
+
     private String requestStr=null;
+
+    private String queryString=null;
 
     private boolean parse(){
         if (!parsed){
@@ -48,13 +52,21 @@ public class Request {
 
     public void parseUrl(){
         try {
-            if (parse()&&StrKit.isNotBlank(requestStr)){
-                String[] str=requestStr.split("\r\n");
-                String reqLine=str[0];
-                if (StrKit.isNotBlank(reqLine)){
-                    String url= reqLine.split(" ")[1];
-                    if (StrKit.isNotBlank(url)){
-                        this.url=url;
+            if (url==null) {
+                if (parse()&&StrKit.isNotBlank(requestStr)){
+                    String[] str=requestStr.split("\r\n");
+                    String reqLine=str[0];
+                    if (StrKit.isNotBlank(reqLine)){
+                        String url= reqLine.split(" ")[1];
+                        if (StrKit.isNotBlank(url)){
+                            int question=url.indexOf('?');
+                            if (question>=0){
+                                queryString=new String(url.toCharArray(),question+1,url.length()-question-1);
+                                this.url=new String(url.toCharArray(),0,question);
+                            }else{
+                                this.url=url;
+                            }
+                        }
                     }
                 }
             }
@@ -63,7 +75,7 @@ public class Request {
         }
     }
 
-    //getter and setter
+     //getter and setter
     public String getRequestStr() {
         return requestStr;
     }

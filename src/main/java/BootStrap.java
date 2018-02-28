@@ -24,7 +24,8 @@ public class BootStrap {
                     Request request=new Request(socket.getInputStream());
                     Response response=new Response(socket.getOutputStream(),request);
                     System.out.println(count);
-
+                    request.parseUrl();
+                    System.out.println(request.getUrl()+"---");
                     Thread thread=new Thread(new HttpProcessor(request,response,context));
                     thread.start();
                     count++;
