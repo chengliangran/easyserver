@@ -76,7 +76,7 @@ public class Request {
     }
 
      //getter and setter
-    public String getRequestStr() {
+    private String getRequestStr() {
         return requestStr;
     }
 
@@ -85,6 +85,9 @@ public class Request {
     }
 
     public String getUrl() {
+        if (url==null){
+            parseUrl();
+        }
         return url;
     }
 

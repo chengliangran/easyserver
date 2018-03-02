@@ -9,4 +9,12 @@ import com.easyserver.components.Response;
 public interface Wrapper {
     public void invoke(Request request, Response response);
 
+    //getter and setter
+    public void setName(String name);
+
+    public String getName();
+
+    public void setClassName(String className);
+
+    public String getClassName();
 }

@@ -32,23 +32,12 @@ public class HttpProcessor implements Runnable {
             "<h1>abc</h1>";
 
     public void process(){
-        request.parseUrl();
-        OutputStream outputStream= response.getOutputStream();
         try {
-//            outputStream.write(sucessMsg.getBytes());
             if (context!=null){
                 context.invoke(request,response);
             }
          } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            if (outputStream!=null){
-                try {
-                    outputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 

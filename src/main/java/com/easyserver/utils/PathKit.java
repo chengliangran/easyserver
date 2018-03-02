@@ -7,5 +7,5 @@ import java.io.File;
  */
 public class PathKit {
     public static String WEB_ROOT=System.getProperty("user.dir")+ File.separator+"webroot";
-
+    public static String WEB_CONTENT=WEB_ROOT+File.separator+"web"+File.separator;
 }

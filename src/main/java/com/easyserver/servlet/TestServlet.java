@@ -25,37 +25,28 @@ public class TestServlet implements Servlet {
 //            "<h1>abc</h1>";
     public void invoke(Request request, Response response) {
         System.out.println("返回处理结果");
+        FileInputStream inputStream=null;
         try {
-            if ("/".equals(request.getUrl())){
                 byte[] buffer=new byte[2048];
-                FileInputStream inputStream=new FileInputStream(new File(PathKit.WEB_ROOT+File.separator+"test.txt"));
+                inputStream=new FileInputStream(new File(PathKit.WEB_ROOT+File.separator+"test.txt"));
                 int length=inputStream.read(buffer);
                 while (length!=-1){
                     response.getOutputStream().write(buffer,0,length);
+                    buffer=new byte[2048];
                     length=inputStream.read(buffer);
                 }
-            }else{
-                response.getOutputStream().write(failedMsg.getBytes());
 
-//      `       response.getOutputStream().write("text and document".getBytes());1测试字符串
-//              2测试json
-                HashMap<String,String> map=new HashMap<String, String>();
-                map.put("1","1");
-                map.put("2","2");
-                List list=new ArrayList();
-                list.add(map);
-                list.add("1");
-
-                String jsonString= JSON.toJSONString(list);
-                OutputStream outputStream=response.getOutputStream();
-                outputStream.write(jsonString.getBytes());
-                outputStream.flush();
-                outputStream.close();
-
-
-            }
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            if (inputStream!=null){
+                try {
+                    System.out.println("关闭连接");
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }
