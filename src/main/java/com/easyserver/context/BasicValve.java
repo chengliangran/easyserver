@@ -19,9 +19,8 @@ import java.util.List;
  * Created by Administrator on 2018/3/1 0001.
  */
 public class BasicValve implements Valve {
-    String failedMsg="HTTP/1.1 200 sb\r\n" +
-            "Content-Type:text/html\r\n" +
-            "\r\n";
+
+
     Context context;
 
     public void invoke(Request request, Response response) {
@@ -44,16 +43,7 @@ public class BasicValve implements Valve {
             }
         }
         if (!flag){
-            try {
-                System.out.println("开始写数据");
-                OutputStream outputStream=response.getOutputStream();
-                outputStream.write(failedMsg.getBytes());
-                new Html(PathKit.WEB_CONTENT+"test.html",outputStream).write();
-                outputStream.flush();
-                outputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+           getContext().getResWrapper().invoke(request,response);
         }
     }
 

@@ -19,7 +19,11 @@ public class Context {
         Wrapper wrapper=new BasicWrapper();
         wrapper.setClassName("com.easyserver.servlet.TestServlet");
         wrapper.setName("basic");
+
+        Wrapper wrapper1=new ResWrapper();
+
         wrappers.add(wrapper);
+
     }
 
     ClassLoader classLoader=Thread.currentThread().getContextClassLoader();
@@ -28,7 +32,10 @@ public class Context {
 
     List<Wrapper> wrappers=new ArrayList<Wrapper>();
 
-    public void invoke(Request request,Response response){
+    Wrapper resWrapper=new ResWrapper();
+
+
+    public void invoke(Request request, Response response){
         pipeline.setContext(this);
         System.out.println("context 开始运作");
         try {
@@ -46,5 +53,14 @@ public class Context {
     public void setWrapper(Wrapper wrapper) {
         wrappers.add(wrapper);
     }
+
+    public Wrapper getResWrapper() {
+        return resWrapper;
+    }
+
+    public void setResWrapper(Wrapper resWrapper) {
+        this.resWrapper = resWrapper;
+    }
+
 
 }

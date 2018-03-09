@@ -19,7 +19,7 @@ public class Test {
                 "\"eslysfwbqsjkcje\": 0.00,//税率11本期实际扣除金额\n" +
                 "\"msdysfwbqsjkcje\": 0.00,//免税的项目 本期实际扣除金额\n" +
                 "\"sslysfwqmye\": 0.00,//税率6a期末余额\n" +
-                "\"sslysfwqmyenew\": 0.00,//税率6（包含金融商品转让项目）期末余额\n" +
+                "\"sslysfwqmyenew\": 0.00,//税率6basi（包含金融商品转让项目）期末余额\n" +
                 "\"tslysfwqmye\": 0.00,//税率3期末余额\n" +
                 "\"yxdcznfwqcye\": 0.00,//税率17 期初余额\n" +
                 "\"sslysfwbqsjkcjenew\": 0.00,//税率6（包含金融商品转让项目）本期实际扣除金额\n" +

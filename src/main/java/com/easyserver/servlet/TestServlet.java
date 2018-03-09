@@ -19,14 +19,19 @@ import java.util.List;
  * Created by Administrator on 2018/2/27 0027.
  */
 public class TestServlet implements Servlet {
-    String failedMsg="HTTP/1.1 404 sb\r\n" +
-            "Content-Type:text/html\r\n" +
-            "\r\n" ;
+    String successMsg="HTTP/1.1 200 sb\r\n" +
+            "Content-Type:application/octet-stream\r\n" +
+            "Connection:close\r\n"+
+             "\r\n" ;
 //            "<h1>abc</h1>";
     public void invoke(Request request, Response response) {
         System.out.println("返回处理结果");
         FileInputStream inputStream=null;
         try {
+
+                response.getOutputStream().write(successMsg.getBytes());
+                String contentLength="Content-Length:"+new File(PathKit.WEB_ROOT+File.separator+"test.txt").length()+"\r\n";
+                response.getOutputStream().write(contentLength.getBytes());
                 byte[] buffer=new byte[2048];
                 inputStream=new FileInputStream(new File(PathKit.WEB_ROOT+File.separator+"test.txt"));
                 int length=inputStream.read(buffer);
@@ -35,6 +40,7 @@ public class TestServlet implements Servlet {
                     buffer=new byte[2048];
                     length=inputStream.read(buffer);
                 }
+                response.getOutputStream().flush();
 
         } catch (IOException e) {
             e.printStackTrace();
