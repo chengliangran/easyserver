@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script type="text/javascript" src="${basePath}/res/js/jquery-easyui/jquery.min.js"></script>
+</head>
+<body>
+<form>
+    <input id="mn_cookies" value="${mn_cookies!''}" type="hidden"/>
+    <div>
+        <img id="word" src="" alt=""><br>
+    </div>
+    <div id="sec_div" style="position:relative">
+        <img id="image"  src="" alt="">
+        <span id="reminder"></span>
+        <input type="button" value="刷新" onclick="refresh()">
+        <br/>
+
+    </div>
+    <div>
+    </div>
+</form>
+<button onclick="reset()">重置</button>
+<button onclick="submit1()">提交1</button>
+
+<script type="text/javascript">
+
+    //初始化图片
+    $(function(){
+        var cookies=getCookies();
+    });
+
+    //1 获取cookie
+    function getCookies(){
+        $.ajax({
+            type:'GET',
+            url:'http://etax.jsgs.gov.cn/sso/login',
+            dataType: 'jsonp',
+            headers:{
+                "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+                "Accept-Encoding":"gzip, deflate",
+                "Host":"etax.jsgs.gov.cn:9090",
+                "User-Agent":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36"
+            },
+            success:function(data){
+                alert(data);
+            }
+        });
+    }
+    //2 获取验证码图片
+    function iniPic(cookies){
+        var data;
+        $("#word").attr("src",'data:image/png;base64,'+data.word);
+        $("#image").attr("src",'data:image/png;base64,'+data.image);
+    }
+    //3提交验证
+    function submit(){
+
+    }
+
+    function refresh(){
+        initPic();
+    }
+
+    //获取验证码结果
+    var points=new Array();//每次点击图片获取的xy信息
+    var i=0;//点击图片次数
+    function clickRecord(e){
+        var img=$("#image");
+        //获得图片中的xy的相对坐标
+        var offsetX = e.pageX - img.offset().left;
+        var offsetY = e.pageY - img.offset().top;
+
+        points[i]=Math.floor(offsetX)+','+Math.floor(offsetY);
+        i++;
+
+        var point_pic=$("<img class='point_pic' style='position:absolute' src='/res/images/security_pic/xyq.png'>");
+        point_pic.css("top",offsetY).css("left",offsetX).appendTo($("#sec_div"));
+    }
+    //刷新界面
+    function reset(){
+        points=new Array();
+        i=0;
+        $(".point_pic").remove();
+    }
+</script>
+</body>
+</html>
+<#include "/common/foot.html"/>
+
