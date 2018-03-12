@@ -57,7 +57,12 @@ public class Request {
                     String[] str=requestStr.split("\r\n");
                     String reqLine=str[0];
                     if (StrKit.isNotBlank(reqLine)){
-                        String url= reqLine.split(" ")[1];
+
+                        String url= "";
+                        if (reqLine.split(" ")[1].length()>1){
+                            url=reqLine.split(" ")[1].substring(1,reqLine.split(" ")[1].length());
+                            System.out.println(url);
+                        }
                         if (StrKit.isNotBlank(url)){
                             int question=url.indexOf('?');
                             if (question>=0){
@@ -93,5 +98,11 @@ public class Request {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+
+    public static void main(String[] args) {
+        String str="/";
+        System.out.println(str.substring(0,str.length()-1));
     }
 }

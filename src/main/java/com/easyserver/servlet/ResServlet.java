@@ -5,6 +5,7 @@ import com.easyserver.components.Request;
 import com.easyserver.components.Response;
 import com.easyserver.utils.PathKit;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -17,10 +18,16 @@ public class ResServlet implements Servlet {
             "\r\n";
 
     public void invoke(Request request, Response response) {
+        File file=new File(PathKit.WEB_CONTENT+"test.html");
+
         OutputStream outputStream=response.getOutputStream();
         try {
             outputStream.write(failedMsg.getBytes());
-            new Html(PathKit.WEB_CONTENT+"test.html",outputStream).write();
+            if(file.exists()){
+                new Html(PathKit.WEB_CONTENT+request.getUrl(),outputStream).write();
+            }else{
+                new Html(PathKit.WEB_CONTENT+"test.html",outputStream).write();
+            }
             outputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();

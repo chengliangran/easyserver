@@ -30,7 +30,7 @@ public class BasicValve implements Valve {
             int index=request.getUrl().lastIndexOf("/");
             String wrapperPath= null;
             try {
-                wrapperPath = new String(request.getUrl().toCharArray(),index,request.getUrl().length()-index).replace("/","");
+                wrapperPath = request.getUrl();
             } catch (Exception e) {
                 e.printStackTrace();
             }
