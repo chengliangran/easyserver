@@ -71,6 +71,8 @@ public class Request {
                             }else{
                                 this.url=url;
                             }
+                        }else{
+                            this.url=url;
                         }
                     }
                 }
