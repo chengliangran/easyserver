@@ -37,7 +37,6 @@ public class Context {
 
     public void invoke(Request request, Response response){
         pipeline.setContext(this);
-        System.out.println("context 开始运作");
         try {
             pipeline.invoke(request,response);
         } catch (Exception e){

@@ -61,7 +61,7 @@ public class Request {
                         String url= "";
                         if (reqLine.split(" ")[1].length()>1){
                             url=reqLine.split(" ")[1].substring(1,reqLine.split(" ")[1].length());
-                            System.out.println(url);
+                            System.out.println("请示的url:"+url);
                         }
                         if (StrKit.isNotBlank(url)){
                             int question=url.indexOf('?');
@@ -104,7 +104,5 @@ public class Request {
 
 
     public static void main(String[] args) {
-        String str="/";
-        System.out.println(str.substring(0,str.length()-1));
     }
 }

@@ -25,7 +25,6 @@ public class TestServlet implements Servlet {
              "\r\n" ;
 //            "<h1>abc</h1>";
     public void invoke(Request request, Response response) {
-        System.out.println("返回处理结果");
         FileInputStream inputStream=null;
         try {
 
@@ -47,7 +46,6 @@ public class TestServlet implements Servlet {
         }finally {
             if (inputStream!=null){
                 try {
-                    System.out.println("关闭连接");
                     inputStream.close();
                 } catch (IOException e) {
                     e.printStackTrace();

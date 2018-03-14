@@ -31,7 +31,6 @@ public class ResServlet implements Servlet {
         }
         try {
             //输出header头
-            System.out.println(request.getUrl()+"test123s");
             if (request.getUrl().endsWith("js")){
                 httpProtocal=js;
             }else if(request.getUrl().endsWith("css")){
